@@ -1,2 +1,2 @@
--- name: GetUsers :many 
-SELECT * FROM users;
+-- name: GetArtists :many 
+SELECT * FROM artists;
