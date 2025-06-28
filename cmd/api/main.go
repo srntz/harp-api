@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
-	v1 "github.com/srntz/harp-api/cmd/api/v1"
+	v1 "github.com/srntz/harp-api/cmd/api/controllers/v1"
 	"github.com/srntz/harp-api/internal/initializers"
 )
 
@@ -11,7 +11,10 @@ func main() {
 
 	e := gin.Default()
 
-	v1.RegisterRootController(e)
+	rg := e.Group("")
+	{
+		v1.RegisterRoutes(rg)
+	}
 
 	e.Run()
 }
