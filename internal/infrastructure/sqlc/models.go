@@ -65,7 +65,7 @@ type Artist struct {
 }
 
 type Release struct {
-	ID          int64
+	ID          pgtype.UUID
 	CreatedAt   pgtype.Timestamp
 	UpdatedAt   pgtype.Timestamp
 	Title       string
