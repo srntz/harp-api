@@ -12,7 +12,7 @@ import (
 type ArtistRepository struct{}
 
 func (r *ArtistRepository) GetByID(id string) (*artist.Artist, error) {
-	pool, err := db.GetPool(db.DEFAULT_URL)
+	pool, err := db.GetPool(db.DefaultURL())
 	if err != nil {
 		return nil, err
 	}

@@ -2,6 +2,7 @@ package db
 
 import (
 	"context"
+	"fmt"
 	"os"
 
 	"github.com/jackc/pgx/v5"
@@ -9,9 +10,12 @@ import (
 
 var pool *pgx.Conn
 
-var DEFAULT_URL string = os.Getenv("POSTGRES_URL")
+func DefaultURL() string {
+	return os.Getenv("POSTGRES_URL")
+}
 
 func GetPool(url string) (*pgx.Conn, error) {
+	fmt.Println(url)
 	if pool != nil {
 		return pool, nil
 	}

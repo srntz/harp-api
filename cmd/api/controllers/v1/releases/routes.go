@@ -10,8 +10,8 @@ func RegisterRoutes(rg *gin.RouterGroup) {
 		collectionGroup.GET("/", controller.getReleases)
 	}
 
-	memberGroup := rg.Group("/release")
+	memberGroup := rg.Group("/release/:id")
 	{
-		memberGroup.GET("/:id", controller.getReleaseByID)
+		memberGroup.GET("/", controller.getReleaseByID)
 	}
 }

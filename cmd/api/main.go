@@ -11,8 +11,8 @@ import (
 
 func main() {
 	initializers.LoadEnv()
-	if _, err := db.GetPool(db.DEFAULT_URL); err != nil {
-		log.Fatal("Could not establish a connection with the database while initializing the server")
+	if _, err := db.GetPool(db.DefaultURL()); err != nil {
+		log.Fatalf("Could not establish a connection with the database while initializing the server: %s", err.Error())
 	}
 
 	e := gin.Default()
