@@ -7,35 +7,24 @@ package sqlc
 
 import (
 	"context"
+
+	"github.com/jackc/pgx/v5/pgtype"
 )
 
-const getArtists = `-- name: GetArtists :many
-SELECT id, created_at, updated_at, name, bio, image_url FROM artists
+const getArtistByID = `-- name: GetArtistByID :one
+SELECT id, created_at, updated_at, name, bio, image_url FROM artists WHERE id = $1
 `
 
-func (q *Queries) GetArtists(ctx context.Context) ([]Artist, error) {
-	rows, err := q.db.Query(ctx, getArtists)
-	if err != nil {
-		return nil, err
-	}
-	defer rows.Close()
-	var items []Artist
-	for rows.Next() {
-		var i Artist
-		if err := rows.Scan(
-			&i.ID,
-			&i.CreatedAt,
-			&i.UpdatedAt,
-			&i.Name,
-			&i.Bio,
-			&i.ImageUrl,
-		); err != nil {
-			return nil, err
-		}
-		items = append(items, i)
-	}
-	if err := rows.Err(); err != nil {
-		return nil, err
-	}
-	return items, nil
+func (q *Queries) GetArtistByID(ctx context.Context, id pgtype.UUID) (Artist, error) {
+	row := q.db.QueryRow(ctx, getArtistByID, id)
+	var i Artist
+	err := row.Scan(
+		&i.ID,
+		&i.CreatedAt,
+		&i.UpdatedAt,
+		&i.Name,
+		&i.Bio,
+		&i.ImageUrl,
+	)
+	return i, err
 }
