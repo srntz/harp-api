@@ -3,7 +3,7 @@
 CREATE TYPE release_type as ENUM ('album', 'ep', 'single', 'compilation');
 
 CREATE TABLE releases (
-  id            BIGSERIAL     PRIMARY KEY,
+  id            UUID     PRIMARY KEY DEFAULT gen_random_uuid(),
   created_at    TIMESTAMP     DEFAULT NOW(),
   updated_at    TIMESTAMP     DEFAULT NOW(),
   title         TEXT          NOT NULL,

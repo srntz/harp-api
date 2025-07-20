@@ -1,7 +1,9 @@
 -- +goose Up
 -- +goose StatementBegin
+CREATE EXTENSION IF NOT EXISTS "pgcrypto";
+
 CREATE TABLE artists (
-  id            UUID   PRIMARY KEY,
+  id            UUID   PRIMARY KEY DEFAULT gen_random_uuid(),
   created_at    TIMESTAMP    DEFAULT NOW(),
   updated_at    TIMESTAMP    DEFAULT NOW(),
   name          TEXT        NOT NULL,
